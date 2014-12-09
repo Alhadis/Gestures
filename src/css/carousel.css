@@ -1,0 +1,112 @@
+/** Draggable carousels */
+.carousel{
+	width: 100%;
+	position: relative;
+	margin: 1em auto;
+	overflow: hidden;
+	outline: 1px solid red;
+}
+	.carousel::before{
+		content: "";
+		display: block;
+		padding-top: 60%;
+	}
+	.carousel > ul{
+		position: absolute;
+		list-style: none;
+		top:	0;
+		left:	0;
+		width:	100%;
+		height:	100%;
+		margin:	0;
+		padding: 0;
+		will-change: transform;
+
+		-webkit-backface-visibility:	hidden;
+		-moz-backface-visibility:		hidden;
+		backface-visibility:			hidden;
+
+		-webkit-transform:	translate3d(0,0,0);
+		-moz-transform:		translate3d(0,0,0);
+		-ms-transform:		translate3d(0,0,0);
+		-o-transform:		translate3d(0,0,0);
+		transform:			translate3d(0,0,0);
+
+		-webkit-transition:	.3s ease -webkit-transform;
+		-moz-transition:	.3s ease -moz-transform;
+		-o-transition:		.3s ease -o-transform;
+		transition:			.3s ease transform;
+	}
+		/** Drag-enabled carousel */
+		.draggable.carousel > ul{
+			cursor:	move;
+			cursor: -webkit-grab;
+			cursor:    -moz-grab;
+			cursor: 		grab;
+		}
+		.dragging.carousel > ul{
+			cursor: -webkit-grabbing;
+			cursor:    -moz-grabbing;
+			cursor: 		grabbing;
+
+			-webkit-transition:	none;
+			-moz-transition:	none;
+			-o-transition:		none;
+			transition:			none;
+		}
+
+		/** Slides */
+		.carousel > ul > li{
+			position: absolute;
+			top:	0;
+			left:	0;
+			width:	100%;
+			height:	100%;
+			padding: 0;
+			margin: 0;
+
+			background-repeat: no-repeat;
+			background-position: 50% 0%;
+			-webkit-background-size:		cover;
+			-khtml-background-size:			cover;
+			-moz-background-size:			cover;
+			-ms-background-size:			cover;
+			-o-background-size:				cover;
+			background-size:				cover;
+
+			-webkit-backface-visibility:	hidden;
+			-moz-backface-visibility:		hidden;
+			backface-visibility:			hidden;
+
+			-webkit-transition:	.3s ease -webkit-transform;
+			-moz-transition:	.3s ease -moz-transform;
+			-o-transition:		.3s ease -o-transform;
+			transition:			.3s ease transform;
+
+			-webkit-transform:	translateX(-100%);
+			-moz-transform:		translateX(-100%);
+			-ms-transform:		translateX(-100%);
+			-o-transform:		translateX(-100%);
+			transform:			translateX(-100%);
+		}
+
+		.carousel > ul > .active{
+			z-index: 10;
+			-webkit-transform:	translateX(0);
+			-moz-transform:		translateX(0);
+			-ms-transform:		translateX(0);
+			-o-transform:		translateX(0);
+			transform:			translateX(0);
+		}
+
+		.carousel > ul > .active ~ li{
+			z-index: 8;
+			-webkit-transform:	translateX(100%);
+			-moz-transform:		translateX(100%);
+			-ms-transform:		translateX(100%);
+			-o-transform:		translateX(100%);
+			transform:			translateX(100%);
+		}
+		.carousel > ul > .active + li{
+			z-index: 9;
+		}
