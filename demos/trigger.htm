@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="initial-scale=1" />
+<title>Basic Trigger</title>
+<style>
+#trigger{
+	width: 10em;
+	height: 10em;
+	outline: 1px solid red;
+	cursor: pointer;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -5em 0 0 -5em;
+}
+</style>
+</head>
+
+
+<body>
+	
+	<div id="trigger"></div>
+	
+	
+	<script src="../gestures.js"></script>
+	<script>
+		"use strict";
+		
+		var trigger = document.getElementById("trigger");
+		
+		new Gesture(trigger);
+	</script>
+</body>
+</html>
