@@ -15,7 +15,7 @@ html{
 	background: #000;
 	width: 100%;
 	-webkit-font-smoothing: antialiased;
-	background: url("src/img/bg.jpg") no-repeat 50% 50% #000;
+	background: url("assets/img/bg.jpg") no-repeat 50% 50% #000;
 	background-size: cover;
 }
 	html, body{
@@ -85,7 +85,7 @@ html{
 
 #container{
 	width: 40em;
-	background-image: url("src/img/bg.jpg");
+	background-image: url("assets/img/bg.jpg");
 	background-repeat: no-repeat;
 	background-position: 50% 50%;
 	background-color: #000;
@@ -94,7 +94,7 @@ html{
 		padding-top: 55%;
 	}
 </style>
-<link rel="stylesheet" type="text/css" media="all" href="src/css/carousel.css" />
+<link rel="stylesheet" type="text/css" media="all" href="assets/css/carousel.css" />
 </head>
 
 
@@ -105,15 +105,15 @@ html{
 
 	<div id="container" class="draggable carousel">
 		<ul>
-			<li style="background-image: url('src/img/1.jpg');"></li>
-			<li class="active" style="background-image: url('src/img/2.jpg');"></li>
-			<li style="background-image: url('src/img/3.jpg');"></li>
+			<li style="background-image: url('assets/img/1.jpg');"></li>
+			<li style="background-image: url('assets/img/2.jpg');" class="active"></li>
+			<li style="background-image: url('assets/img/3.jpg');"></li>
 		</ul>
 	</div>
 
 
 
-	<script type="text/javascript" src="src/js/gestures.js"></script>
-	<script type="text/javascript" src="src/js/demo.js"></script>
+	<script type="text/javascript" src="../gestures.js"></script>
+	<script type="text/javascript" src="assets/js/demo.js"></script>
 </body>
 </html>
