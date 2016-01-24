@@ -1,1 +1,8 @@
 demos/* linguist-documentation
+
+# Improve Git's description of changes made to images
+*.gif   diff=exif
+*.jpeg  diff=exif
+*.jpg   diff=exif
+*.png   diff=exif
+*.webp  diff=exif
