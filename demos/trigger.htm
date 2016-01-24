@@ -43,9 +43,8 @@
 		
 		new Gesture(trigger, {
 			onStart: function(event, gesture){
-				var touch = event.targetTouches[0];
-				
-				var x = touch.clientX;
+				var coords = gesture.getCoords(event)[0];
+				var x = coords[0];
 				
 				/** Bail if the touch didn't happen over the gutter/grey strip */
 				var box = gutter.getBoundingClientRect();

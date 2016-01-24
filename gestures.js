@@ -22,6 +22,7 @@
 		
 		
 		Object.defineProperties(THIS, {
+			getCoords: { value: getCoords },
 			
 			/** Whether the gesture's currently being made */
 			tracking: {
@@ -49,6 +50,33 @@
 				}
 			}
 		});
+		
+		
+		/**
+		 * Return an array of [x,y] coordinates for an event instance.
+		 *
+		 * For desktop devices, the array will generally hold one element only.
+		 * Touch-enabled devices may return more depending on how many fingers
+		 * triggered the event.
+		 *
+		 * @param {Event} event
+		 * @return {Array}
+		 */
+		function getCoords(event){
+			
+			/** Touch-enabled device */
+			if(touches = event.touches){
+				var touches, result  = [];
+				for(var t, i = 0, l = touches.length; i < l; ++i){
+					t = touches[i];
+					result.push([t.pageX, t.pageY]);
+				}
+				return result;
+			}
+			
+			/** MouseEvent or something similar */
+			else return [[event.pageX, event.pageY]];
+		}
 		
 		
 		function onMove(event){
