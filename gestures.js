@@ -11,9 +11,14 @@
 	var CANCEL    = touchEnabled ? "touchcancel" : null;
 	
 	
-	function Gesture(el){
-		var THIS      = this;
-		var _tracking = false;
+	function Gesture(el, options){
+		options           = options || {};
+		var THIS          = this;
+		var _tracking     = false;
+		
+		var startCallback = options.onStart;
+		var moveCallback  = options.onMove;
+		var endCallback   = options.onEnd;
 		
 		
 		Object.defineProperties(THIS, {
@@ -46,21 +51,33 @@
 		});
 		
 		
-		var onMove = function(e){
+		function onMove(event){
 			console.log("Moving");
-			e.preventDefault();
+			event.preventDefault();
+			
+			moveCallback && moveCallback.call(null, event, THIS);
 		};
 		
-		var onEnd  = function(e){
-			console.log("End: " + e.type);
+		function onEnd(event){
+			console.log("End: " + event.type);
+			
 			THIS.tracking = false;
-			e.preventDefault();
+			event.preventDefault();
+			
+			endCallback && endCallback.call(null, event, THIS);
 		};
 		
-		el.addEventListener(START, function(e){
+		
+		el.addEventListener(START, function(event){
+			
+			if(startCallback && false === startCallback.call(null, event, THIS)){
+				console.log("Aborted");
+				return;
+			}
+			
 			console.log("Starting");
 			THIS.tracking = true;
-			e.preventDefault();
+			event.preventDefault();
 		});
 	}
 	
