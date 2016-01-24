@@ -80,15 +80,12 @@
 		
 		
 		function onMove(event){
-			console.log("Moving");
 			event.preventDefault();
 			
 			moveCallback && moveCallback.call(null, event, THIS);
 		};
 		
 		function onEnd(event){
-			console.log("End: " + event.type);
-			
 			THIS.tracking = false;
 			event.preventDefault();
 			
@@ -98,12 +95,9 @@
 		
 		el.addEventListener(START, function(event){
 			
-			if(startCallback && false === startCallback.call(null, event, THIS)){
-				console.log("Aborted");
+			if(startCallback && false === startCallback.call(null, event, THIS))
 				return;
-			}
 			
-			console.log("Starting");
 			THIS.tracking = true;
 			event.preventDefault();
 		});
