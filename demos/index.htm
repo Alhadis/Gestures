@@ -19,13 +19,19 @@
 	<div id="container" class="draggable carousel">
 		<ul>
 			<li style="background-image: url('assets/img/1.jpg');"></li>
-			<li style="background-image: url('assets/img/2.jpg');" class="active"></li>
+			<li style="background-image: url('assets/img/2.jpg');"></li>
 			<li style="background-image: url('assets/img/3.jpg');"></li>
 		</ul>
 	</div>
 
 	<script src="../gestures.js"></script>
-	<script src="assets/js/demo.js"></script>
+	<script src="assets/js/swipeable.js"></script>
+	<script>
+		"use strict";
+		
+		var container = document.getElementById("container");
+		var carousel  = new Swipeable(container.firstElementChild);
+	</script>
 	
 </body>
 </html>
