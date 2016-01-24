@@ -48,16 +48,19 @@
 		
 		var onMove = function(e){
 			console.log("Moving");
+			e.preventDefault();
 		};
 		
 		var onEnd  = function(e){
 			console.log("End: " + e.type);
 			THIS.tracking = false;
+			e.preventDefault();
 		};
 		
 		el.addEventListener(START, function(e){
 			console.log("Starting");
 			THIS.tracking = true;
+			e.preventDefault();
 		});
 	}
 	
