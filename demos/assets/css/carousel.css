@@ -99,7 +99,8 @@
 			transform:          translateX(0);
 		}
 
-		.carousel > ul > .active ~ li{
+		.carousel > ul > .active ~ li,
+		.carousel > .before-first > li{
 			z-index: 8;
 			-webkit-transform:  translateX(100%);
 			-moz-transform:     translateX(100%);

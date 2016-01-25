@@ -51,6 +51,7 @@
 		
 
 		Object.defineProperties(THIS, {
+			el: {value: el},
 			
 			active: {
 				get: function(){ return _active },
@@ -66,9 +67,10 @@
 					
 					/** Make sure the value's different to our existing one */
 					if(input !== _active){
-						_active = input;
 						for(var i = 0, l = kidCount; i < l; ++i)
 							children[i].classList.toggle("active", input === i)
+						onChange && onChange.call(null, input, _active, THIS);
+						_active = input;
 					}
 				}
 			},
@@ -91,10 +93,6 @@
 			}
 		});
 		
-		/** Property pieces used for assigning transform values */
-		var xformBefore = CSS_3D_SUPPORTED ? "translate3D(" : "translateX(";
-		var xformAfter  = CSS_3D_SUPPORTED ? ",0,0)"        : ")";
-		
 		
 		/** Determine the initial slide index */
 		(function(){
@@ -103,6 +101,14 @@
 					return THIS.active = i;
 			THIS.active = clearBefore ? -1 : (clearAfter ? l : 0);
 		}());
+		
+		
+		/** Property pieces used for assigning transform values */
+		var xformBefore = CSS_3D_SUPPORTED ? "translate3D(" : "translateX(";
+		var xformAfter  = CSS_3D_SUPPORTED ? ",0,0)"        : ")";
+		
+		/** Extract onChange callback, if supplied */
+		var onChange    = options.onChange;
 	}
 
 

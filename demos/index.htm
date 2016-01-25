@@ -30,7 +30,13 @@
 		"use strict";
 		
 		var container = document.getElementById("container");
-		var carousel  = new Swipeable(container.firstElementChild);
+		var carousel  = new Swipeable(container.firstElementChild, {
+			
+			clearBefore: true,
+			onChange: function(index){
+				carousel.el.classList.toggle("before-first", index < 0);
+			}
+		});
 	</script>
 	
 </body>
