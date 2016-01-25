@@ -22,7 +22,6 @@
 		
 		
 		Object.defineProperties(THIS, {
-			getCoords: { value: getCoords },
 			
 			/** Whether the gesture's currently being made */
 			tracking: {
@@ -53,11 +52,7 @@
 		
 		
 		/**
-		 * Return an array of [x,y] coordinates for an event instance.
-		 *
-		 * For desktop devices, the array will generally hold one element only.
-		 * Touch-enabled devices may return more depending on how many fingers
-		 * triggered the event.
+		 * Return the coordinates of an event instance.
 		 *
 		 * @param {Event} event
 		 * @return {Array}
@@ -69,33 +64,33 @@
 				var touches, result  = [];
 				for(var t, i = 0, l = touches.length; i < l; ++i){
 					t = touches[i];
-					result.push([t.pageX, t.pageY]);
+					result.push(t.pageX, t.pageY);
 				}
 				return result;
 			}
 			
 			/** MouseEvent or something similar */
-			else return [[event.pageX, event.pageY]];
+			else return [event.pageX, event.pageY];
 		}
 		
 		
 		function onMove(event){
 			event.preventDefault();
 			
-			moveCallback && moveCallback.call(null, event, THIS);
+			moveCallback && moveCallback.call(null, getCoords(event), event, THIS);
 		};
 		
 		function onEnd(event){
 			THIS.tracking = false;
 			event.preventDefault();
 			
-			endCallback && endCallback.call(null, event, THIS);
+			endCallback && endCallback.call(null, getCoords(event), event, THIS);
 		};
 		
 		
 		el.addEventListener(START, function(event){
 			
-			if(startCallback && false === startCallback.call(null, event, THIS))
+			if(startCallback && false === startCallback.call(null, getCoords(event), event, THIS))
 				return;
 			
 			THIS.tracking = true;
