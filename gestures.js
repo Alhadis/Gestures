@@ -61,8 +61,17 @@
 			
 			/** Touch-enabled device */
 			if(touches = event.touches){
-				var touches, result  = [];
-				for(var t, i = 0, l = touches.length; i < l; ++i){
+				var touches;
+				var length = touches.length;
+				
+				/** Use .changedTouches if .touches is empty (e.g., "touchend" events) */
+				if(!length){
+					touches = event.changedTouches;
+					length  = touches.length;
+				}
+
+				var result = [];
+				for(var t, i = 0; i < length; ++i){
 					t = touches[i];
 					result.push(t.pageX, t.pageY);
 				}
