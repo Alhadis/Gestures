@@ -11,27 +11,35 @@
 		var children    = el.children;
 		var _offset     = 0;
 		var _active;
-		var threshold   = options.threshold || 125;
+		
+		var minDistance = options.minDistance || 125;
+		var fastSwipe   = options.fastSwipe   || 200;
 		
 		
 		/** Configure the container's "dragability" */
-		var dragOrigin;
+		var startPoint, startTime;
 		var gesture = new Gesture(options.swipeTarget || el, {
-			onStart: function(coords){
-				dragOrigin = coords;
+			
+			onStart: function(coords, event){
+				startPoint = coords;
+				startTime  = event.timeStamp;
 				el.classList.add("dragging");
 			},
 			
 			onMove: function(coords){
-				THIS.offset = coords[0] - dragOrigin[0];
+				THIS.offset = coords[0] - startPoint[0];
 			},
 			
-			onEnd: function(coords){
-				var distance = coords[0] - dragOrigin[0];
+			onEnd: function(coords, event){
+				var distance = coords[0] - startPoint[0];
 				THIS.offset  = 0;
 				
-				if(distance > threshold)       --THIS.active;
-				else if(distance < -threshold) ++THIS.active;
+				/** Multiply effective distance if the swipe was really fast */
+				if(fastSwipe > 0 && event.timeStamp - startTime < fastSwipe)
+					distance *= 3;
+				
+				if(distance > minDistance)       --THIS.active;
+				else if(distance < -minDistance) ++THIS.active;
 				
 				el.classList.remove("dragging");
 			}
