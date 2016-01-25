@@ -6,14 +6,16 @@
 	 * Swipeable content.
 	 */
 	function Swipeable(el, options){
-		options         = options || {};
-		var THIS        = this;
-		var children    = el.children;
-		var _offset     = 0;
+		options           = options || {};
+		var THIS          = this;
+		var children      = el.children;
+		var _offset       = 0;
 		var _active;
 		
-		var minDistance   = options.minDistance || 125;
-		var fastSwipe     = options.fastSwipe   || 200;
+		var activeClass   = options.activeClass   || "active";
+		var draggingClass = options.draggingClass || "dragging";
+		var minDistance   = options.minDistance   || 125;
+		var fastSwipe     = options.fastSwipe     || 200;
 		var stretchBefore = options.stretchBefore;
 		var stretchAfter  = options.stretchAfter;
 		var clearBefore   = options.clearBefore;
@@ -27,7 +29,7 @@
 			onStart: function(coords, event){
 				startPoint = coords;
 				startTime  = event.timeStamp;
-				el.classList.add("dragging");
+				el.classList.add(draggingClass);
 			},
 			
 			onMove: function(coords){
@@ -45,7 +47,7 @@
 				if(distance > minDistance)       --THIS.active;
 				else if(distance < -minDistance) ++THIS.active;
 				
-				el.classList.remove("dragging");
+				el.classList.remove(draggingClass);
 			}
 		});
 		
@@ -68,7 +70,7 @@
 					/** Make sure the value's different to our existing one */
 					if(input !== _active){
 						for(var i = 0, l = kidCount; i < l; ++i)
-							children[i].classList.toggle("active", input === i)
+							children[i].classList.toggle(activeClass, input === i)
 						onChange && onChange.call(null, input, _active, THIS);
 						_active = input;
 					}
@@ -97,7 +99,7 @@
 		/** Determine the initial slide index */
 		(function(){
 			for(var i = 0, l = children.length; i < l; ++i)
-				if(children[i].classList.contains("active"))
+				if(children[i].classList.contains(activeClass))
 					return THIS.active = i;
 			THIS.active = clearBefore ? -1 : (clearAfter ? l : 0);
 		}());
