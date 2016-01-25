@@ -16,6 +16,8 @@
 		var fastSwipe     = options.fastSwipe   || 200;
 		var stretchBefore = options.stretchBefore;
 		var stretchAfter  = options.stretchAfter;
+		var clearBefore   = options.clearBefore;
+		var clearAfter    = options.clearAfter;
 		
 		
 		/** Configure the container's "dragability" */
@@ -56,8 +58,11 @@
 					
 					/** Clamp input between 0 and the number of contained elements */
 					var kidCount = children.length;
-					if((input = +input) < 0)       input = 0;
-					else if(input >= kidCount - 1) input = kidCount - 1;
+					var min = clearBefore ? -1 : 0;
+					var max = kidCount - (clearAfter ? 0 : 1);
+					
+					if((input = +input) < min) input = min;
+					else if(input >= max)      input = max;
 					
 					/** Make sure the value's different to our existing one */
 					if(input !== _active){
@@ -75,7 +80,8 @@
 					if((i = +i) !== _offset){
 						
 						/** Bail if we shouldn't swipe outside the content's boundaries */
-						if((!stretchBefore && i > 0 && !_active) || (!stretchAfter && i < 0 && _active >= children.length - 1))
+						if((!stretchBefore && i > 0 && _active <= (clearBefore ? -1 : 0))
+						|| (!stretchAfter  && i < 0 && _active >= children.length - (clearAfter ? 0 : 1)))
 							return;
 						
 						_offset = i;
@@ -95,7 +101,7 @@
 			for(var i = 0, l = children.length; i < l; ++i)
 				if(children[i].classList.contains("active"))
 					return THIS.active = i;
-			THIS.active = 0
+			THIS.active = clearBefore ? -1 : (clearAfter ? l : 0);
 		}());
 	}
 
