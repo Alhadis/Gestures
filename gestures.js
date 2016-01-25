@@ -36,6 +36,7 @@
 							
 							CANCEL && html.addEventListener(CANCEL, onEnd);
 							window.addEventListener("blur", onEnd);
+							window.addEventListener("contextmenu", onEnd);
 						}
 						
 						else{
@@ -44,6 +45,7 @@
 							
 							CANCEL && html.removeEventListener(CANCEL, onEnd);
 							window.removeEventListener("blur", onEnd);
+							window.removeEventListener("contextmenu", onEnd);
 						}
 					}
 				}
@@ -85,20 +87,21 @@
 		
 		function onMove(event){
 			event.preventDefault();
-			
 			moveCallback && moveCallback.call(null, getCoords(event), event, THIS);
 		};
 		
 		function onEnd(event){
 			THIS.tracking = false;
-			event.preventDefault();
-			
 			endCallback && endCallback.call(null, getCoords(event), event, THIS);
 		};
 		
 		
 		el.addEventListener(START, function(event){
 			
+			/** Don't do anything if the user right-clicked */
+			if(event.button > 0) return;
+			
+			/** Allow an onStart callback to abort the gesture by returning false */
 			if(startCallback && false === startCallback.call(null, getCoords(event), event, THIS))
 				return;
 			
