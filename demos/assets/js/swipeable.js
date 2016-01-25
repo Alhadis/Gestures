@@ -24,7 +24,7 @@
 		
 		/** Configure the container's "dragability" */
 		var startPoint, startTime;
-		var gesture = new Gesture(options.swipeTarget || el, {
+		new Gesture(options.swipeTarget || el, {
 			
 			onStart: function(coords, event){
 				startPoint = coords;

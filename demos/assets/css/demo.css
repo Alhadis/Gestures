@@ -23,66 +23,6 @@ html{
 	}
 
 
-
-
-
-
-/** Navigation controls. */
-.n{
-	position: fixed;
-	top: 50%;
-	display: none;
-	cursor: pointer;
-	z-index: 99;
-	color: #fff;
-	margin: -.5em .2em 0;
-	opacity: .25;
-	font: 4em "Space Age", "SpaceAge";
-	text-shadow: 0 0 .1em #000, 0 0 .25em #000;
-}
-	/** Previous slide */
-	.n.prev{           left: 0;       }
-	.n.prev::before{   content: "<";  }
-
-	/** Next slide */
-	.n.next{           right:   0;    }
-	.n.next::before{   content: ">";  }
-
-
-.smudge{
-	position: fixed;
-	background: #f00;
-	width:  1em;
-	height: 1em;
-	margin: -.5em 0 0 -.5em;
-	z-index: 9999;
-	
-	-webkit-border-radius:  50%;
-	-moz-border-radius:     50%;
-	border-radius:          50%;
-
-	-webkit-transition:    .5s ease all;
-	-moz-transition:       .5s ease all;
-	-o-transition:         .5s ease all;
-	transition:            .5s ease all;
-
-
-	-ms-touch-events:       none;
-	touch-action:           none;
-	pointer-events:         none;
-
-	-webkit-user-select:    none;
-	-moz-user-select:       none;
-	-ms-user-select:        none;
-	-o-user-select:         none;
-	user-select:            none;
-}
-	.smudge.dissolving{
-		font-size: .9em;
-		opacity: 0;
-	}
-
-
 #container{
 	width: 40em;
 	background-image: url("../img/bg.jpg");
