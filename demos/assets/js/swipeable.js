@@ -70,7 +70,7 @@
 					/** Make sure the value's different to our existing one */
 					if(input !== _active){
 						for(var i = 0, l = kidCount; i < l; ++i)
-							children[i].classList.toggle(activeClass, input === i)
+							children[i].classList[input === i ? "add" : "remove"](activeClass);
 						onChange && onChange.call(null, input, _active, THIS);
 						_active = input;
 					}
