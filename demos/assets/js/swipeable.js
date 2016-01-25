@@ -5,11 +5,37 @@
 	/**
 	 * Swipeable content.
 	 */
-	function Swipeable(el){
-		var THIS     = this;
-		var children = el.children;
-		var _offset  = 0;
+	function Swipeable(el, options){
+		options         = options || {};
+		var THIS        = this;
+		var children    = el.children;
+		var _offset     = 0;
 		var _active;
+		var threshold   = options.threshold || 125;
+		
+		
+		/** Configure the container's "dragability" */
+		var dragOrigin;
+		var gesture = new Gesture(options.swipeTarget || el, {
+			onStart: function(coords){
+				dragOrigin = coords;
+				el.classList.add("dragging");
+			},
+			
+			onMove: function(coords){
+				THIS.offset = coords[0] - dragOrigin[0];
+			},
+			
+			onEnd: function(coords){
+				var distance = coords[0] - dragOrigin[0];
+				THIS.offset  = 0;
+				
+				if(distance > threshold)       --THIS.active;
+				else if(distance < -threshold) ++THIS.active;
+				
+				el.classList.remove("dragging");
+			}
+		});
 		
 
 		Object.defineProperties(THIS, {

@@ -38,13 +38,13 @@
 		transition:          .3s ease transform;
 	}
 		/** Drag-enabled carousel */
-		.draggable.carousel > ul{
+		.carousel > .draggable{
 			cursor: move;
 			cursor: -webkit-grab;
 			cursor:    -moz-grab;
 			cursor:         grab;
 		}
-		.dragging.carousel > ul{
+		.carousel > .dragging{
 			cursor: -webkit-grabbing;
 			cursor:    -moz-grabbing;
 			cursor:         grabbing;
