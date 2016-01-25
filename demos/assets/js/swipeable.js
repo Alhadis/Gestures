@@ -12,8 +12,10 @@
 		var _offset     = 0;
 		var _active;
 		
-		var minDistance = options.minDistance || 125;
-		var fastSwipe   = options.fastSwipe   || 200;
+		var minDistance   = options.minDistance || 125;
+		var fastSwipe     = options.fastSwipe   || 200;
+		var stretchBefore = options.stretchBefore;
+		var stretchAfter  = options.stretchAfter;
 		
 		
 		/** Configure the container's "dragability" */
@@ -71,6 +73,11 @@
 				get: function(){ return _offset },
 				set: function(i){
 					if((i = +i) !== _offset){
+						
+						/** Bail if we shouldn't swipe outside the content's boundaries */
+						if((!stretchBefore && i > 0 && !_active) || (!stretchAfter && i < 0 && _active >= children.length - 1))
+							return;
+						
 						_offset = i;
 						el.style[CSS_TRANSFORM] = xformBefore + i + "px" + xformAfter;
 					}
