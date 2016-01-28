@@ -115,7 +115,6 @@
 				return;
 			
 			THIS.tracking = true;
-			event.preventDefault();
 		});
 	}
 	
