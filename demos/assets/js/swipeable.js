@@ -16,7 +16,7 @@
 		var draggingClass = options.draggingClass || "dragging";
 		var minDistance   = options.minDistance   || 125;
 		var fastSwipe     = options.fastSwipe     || 200;
-		var scrollThresh  = options.scrollThresh  || 5;
+		var scrollAngle   = (+options.scrollAngle || 10) * 2;
 		var stretchBefore = options.stretchBefore;
 		var stretchAfter  = options.stretchAfter;
 		var clearBefore   = options.clearBefore;
@@ -34,14 +34,15 @@
 			},
 			
 			onMove: function(coords){
-				var xDist = coords[0] - startPoint[0];
-				var yDist = coords[1] - startPoint[1];
-				if(Math.abs(yDist) >= scrollThresh && Math.abs(xDist) < scrollThresh){
+				
+				/** If the swipe looks too vertical, the user's probably trying to scroll. Bail. */
+				if(Math.abs(Math.abs((Math.atan2(coords[1] - startPoint[1], startPoint[0] - coords[0])) * 180 / Math.PI) - 90) < scrollAngle){
 					THIS.offset = 0;
 					el.classList.remove(draggingClass);
 					return false;
 				}
-				THIS.offset = xDist;
+				
+				THIS.offset = coords[0] - startPoint[0];
 			},
 			
 			onEnd: function(coords, event){
