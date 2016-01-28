@@ -16,7 +16,7 @@
 		var draggingClass = options.draggingClass || "dragging";
 		var minDistance   = options.minDistance   || 125;
 		var fastSwipe     = options.fastSwipe     || 200;
-		var scrollAngle   = (+options.scrollAngle || 10) * 2;
+		var scrollAngle   = (+options.scrollAngle || 5) * 2;
 		var stretchBefore = options.stretchBefore;
 		var stretchAfter  = options.stretchAfter;
 		var clearBefore   = options.clearBefore;
