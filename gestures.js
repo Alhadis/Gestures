@@ -20,6 +20,10 @@
 		var moveCallback  = options.onMove;
 		var endCallback   = options.onEnd;
 		
+		THIS.onStart      = startCallback;
+		THIS.onMove       = moveCallback;
+		THIS.onEnd        = endCallback;
+		
 		
 		Object.defineProperties(THIS, {
 			
@@ -86,8 +90,13 @@
 		
 		
 		function onMove(event){
+			
+			/** Allow an onMove callback to abort the entire gesture by returning false */
+			if(moveCallback && false === moveCallback.call(null, getCoords(event), event, THIS)){
+				THIS.tracking = false;
+				return;
+			}
 			event.preventDefault();
-			moveCallback && moveCallback.call(null, getCoords(event), event, THIS);
 		};
 		
 		function onEnd(event){
