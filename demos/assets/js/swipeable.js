@@ -16,6 +16,7 @@
 		var draggingClass = options.draggingClass || "dragging";
 		var minDistance   = options.minDistance   || 125;
 		var fastSwipe     = options.fastSwipe     || 200;
+		var scrollThresh  = options.scrollThresh  || 5;
 		var stretchBefore = options.stretchBefore;
 		var stretchAfter  = options.stretchAfter;
 		var clearBefore   = options.clearBefore;
@@ -24,7 +25,7 @@
 		
 		/** Configure the container's "dragability" */
 		var startPoint, startTime;
-		new Gesture(options.swipeTarget || el, {
+		var gesture = new Gesture(options.swipeTarget || el, {
 			
 			onStart: function(coords, event){
 				startPoint = coords;
@@ -33,7 +34,14 @@
 			},
 			
 			onMove: function(coords){
-				THIS.offset = coords[0] - startPoint[0];
+				var xDist = coords[0] - startPoint[0];
+				var yDist = coords[1] - startPoint[1];
+				if(Math.abs(yDist) >= scrollThresh && Math.abs(xDist) < scrollThresh){
+					THIS.offset = 0;
+					el.classList.remove(draggingClass);
+					return false;
+				}
+				THIS.offset = xDist;
 			},
 			
 			onEnd: function(coords, event){
