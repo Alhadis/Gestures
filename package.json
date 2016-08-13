@@ -1,5 +1,5 @@
 {
-	"name": "Gestures",
+	"name": "gestures",
 	"version": "1.1.0",
 	"description": "Minimalist JavaScript class for handling interactive gestures in a device-agnostic fashion.",
 	"repository": "Alhadis/Gestures",
