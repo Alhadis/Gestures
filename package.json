@@ -2,10 +2,9 @@
 	"name": "gestures",
 	"version": "1.1.0",
 	"description": "Minimalist JavaScript class for handling interactive gestures in a device-agnostic fashion.",
-	"repository": "Alhadis/Gestures",
+	"repository": "https://github.com/Alhadis/Gestures.git",
 	"author": "John Gardner <gardnerjohng@gmail.com>",
-	"keywords": ["touch", "swipe", "click", "interaction", "ui"],
-	"homepage": "http://codepen.io/Alhadis/pen/iwlpe",
+	"keywords": ["touch", "pinch", "tap", "touchscreen", "swipe", "click", "interaction", "ui"],
 	"license": "ISC",
 	"main": "index.js",
 	"engines": {
