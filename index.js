@@ -4,7 +4,7 @@
 	var html         = document.documentElement;
 	var touchEnabled = "ontouchstart" in html;
 	
-	/** Event types */
+	// Event types
 	var START     = touchEnabled ? "touchstart"  : "mousedown";
 	var MOVE      = touchEnabled ? "touchmove"   : "mousemove";
 	var END       = touchEnabled ? "touchend"    : "mouseup";
@@ -27,7 +27,10 @@
 		
 		Object.defineProperties(THIS, {
 			
-			/** Whether the gesture's currently being made */
+			/**
+			 * Whether the gesture's currently being made.
+			 * @property {Boolean}
+			 */
 			tracking: {
 				get: function(){ return _tracking },
 				set: function(i){
@@ -65,12 +68,13 @@
 		 */
 		function getCoords(event){
 			
-			/** Touch-enabled device */
+			// Touch-enabled device
 			if(touches = event.touches){
 				var touches;
 				var length = touches.length;
 				
-				/** Use .changedTouches if .touches is empty (e.g., "touchend" events) */
+				// Use .changedTouches if .touches is empty,
+				// such as with `touchend` events.
 				if(!length){
 					touches = event.changedTouches;
 					length  = touches.length;
@@ -84,14 +88,14 @@
 				return result;
 			}
 			
-			/** MouseEvent or something similar */
+			// MouseEvent or something similar
 			else return [event.pageX, event.pageY];
 		}
 		
 		
 		function onMove(event){
 			
-			/** Allow an onMove callback to abort the entire gesture by returning false */
+			// Allow onMove callbacks to abort the gesture by returning false
 			if(moveCallback && false === moveCallback.call(null, getCoords(event), event, THIS)){
 				THIS.tracking = false;
 				return;
@@ -107,10 +111,10 @@
 		
 		el.addEventListener(START, function(event){
 			
-			/** Don't do anything if the user right-clicked */
+			// Don't do anything if the user right-clicked
 			if(event.button > 0) return;
 			
-			/** Allow an onStart callback to abort the gesture by returning false */
+			// Allow onStart callbacks to abort gesture by returning false
 			if(startCallback && false === startCallback.call(null, getCoords(event), event, THIS))
 				return;
 			
@@ -119,7 +123,7 @@
 	}
 	
 	
-	/** Export */
+	// Export
 	window.Gesture = Gesture;
 }());
 (function(){
@@ -147,7 +151,7 @@
 		var clearAfter    = options.clearAfter;
 		
 		
-		/** Configure the container's "dragability" */
+		// Configure the container's "dragability"
 		var startPoint, startTime;
 		var gesture = new Gesture(options.swipeTarget || el, {
 			
@@ -159,7 +163,7 @@
 			
 			onMove: function(coords){
 				
-				/** If the swipe looks too vertical, the user's probably trying to scroll. Bail. */
+				// If the swipe looks too vertical, the user's probably trying to scroll. Bail.
 				if(Math.abs(Math.abs((Math.atan2(coords[1] - startPoint[1], startPoint[0] - coords[0])) * 180 / Math.PI) - 90) < scrollAngle){
 					THIS.offset = 0;
 					el.classList.remove(draggingClass);
@@ -173,7 +177,7 @@
 				var distance = coords[0] - startPoint[0];
 				THIS.offset  = 0;
 				
-				/** Multiply effective distance if the swipe was really fast */
+				// Multiply effective distance if the swipe was really fast
 				if(fastSwipe > 0 && event.timeStamp - startTime < fastSwipe)
 					distance *= 3;
 				
@@ -192,7 +196,7 @@
 				get: function(){ return _active },
 				set: function(input){
 					
-					/** Clamp input between 0 and the number of contained elements */
+					// Clamp input between 0 and the number of contained elements */
 					var kidCount = children.length;
 					var min = clearBefore ? -1 : 0;
 					var max = kidCount - (clearAfter ? 0 : 1);
@@ -200,7 +204,7 @@
 					if((input = +input) < min) input = min;
 					else if(input >= max)      input = max;
 					
-					/** Make sure the value's different to our existing one */
+					// Make sure the value's different to our existing one
 					if(input !== _active){
 						for(var i = 0, l = kidCount; i < l; ++i)
 							children[i].classList[input === i ? "add" : "remove"](activeClass);
@@ -210,13 +214,16 @@
 				}
 			},
 			
-			/** The distance the container's been pulled from its starting point */
+			/**
+			 * The distance the container's been pulled from its starting point
+			 * @property {Number}
+			 */
 			offset: {
 				get: function(){ return _offset },
 				set: function(i){
 					if((i = +i) !== _offset){
 						
-						/** Bail if we shouldn't swipe outside the content's boundaries */
+						// Bail if we shouldn't swipe outside the content's boundaries
 						if((!stretchBefore && i > 0 && _active <= (clearBefore ? -1 : 0))
 						|| (!stretchAfter  && i < 0 && _active >= children.length - (clearAfter ? 0 : 1)))
 							return;
@@ -229,7 +236,7 @@
 		});
 		
 		
-		/** Determine the initial slide index */
+		// Determine the initial slide index
 		(function(){
 			for(var i = 0, l = children.length; i < l; ++i)
 				if(children[i].classList.contains(activeClass))
@@ -238,11 +245,11 @@
 		}());
 		
 		
-		/** Property pieces used for assigning transform values */
+		// Property pieces used for assigning transform values
 		var xformBefore = CSS_3D_SUPPORTED ? "translate3D(" : "translateX(";
 		var xformAfter  = CSS_3D_SUPPORTED ? ",0,0)"        : ")";
 		
-		/** Extract onChange callback, if supplied */
+		// Extract onChange callback, if supplied
 		var onChange    = options.onChange;
 	}
 
@@ -278,7 +285,7 @@
 	}(CSS_TRANSFORM));
 	
 	
-	/** Export */
+	// Export
 	window.Swipeable = Swipeable;
 }());
 
