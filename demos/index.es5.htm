@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<!--[if lte IE 9]><script src="assets/js/ie.lteIE9.js"></script><![endif]-->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="initial-scale=1, minimum-scale=1" />
+<title>ES5: Getting in touch</title>
+
+<link rel="stylesheet" type="text/css" href="assets/css/carousel.css" />
+<link rel="stylesheet" type="text/css" href="assets/css/demo.css" />
+</head>
+
+
+<body>
+
+	<div id="container" class="carousel">
+		<ul class="draggable">
+			<li style="background-image: url('assets/img/1.jpg');"></li>
+			<li style="background-image: url('assets/img/2.jpg');" class="active"></li>
+			<li style="background-image: url('assets/img/3.jpg');"></li>
+		</ul>
+	</div>
+
+	<script src="../lib/gestures.js"></script>
+	<script src="../lib/swipeable.js"></script>
+	<script>
+		"use strict";
+		
+		var container = document.getElementById("container");
+		var carousel  = new Swipeable(container.firstElementChild, {
+			clearBefore: true,
+			onChange: function(index){
+				this.el.classList.toggle("before-first", index < 0);
+			}
+		});
+	</script>
+	
+</body>
+</html>

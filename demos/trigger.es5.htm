@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="initial-scale=1, minimum-scale=1" />
-<title>Basic Trigger</title>
+<title>ES5: Basic Trigger</title>
 <style>
 #trigger{
 	width:  15em;
@@ -47,7 +47,7 @@
 			onStart: function(point){
 				var x = point[0];
 				
-				/** Bail if the touch didn't happen over the gutter/grey strip */
+				// Bail if the touch didn't happen over the gutter/grey strip
 				var box = gutter.getBoundingClientRect();
 				if(x > box.right - box.left) return false;
 			}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<!--[if lte IE 9]><script src="assets/js/ie.lteIE9.js"></script><![endif]-->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="initial-scale=1, minimum-scale=1" />
+<title>ES6: Basic Trigger</title>
+<style>
+#trigger{
+	width:  15em;
+	height: 10em;
+	outline: 1px solid red;
+	cursor: pointer;
+	position: absolute;
+	top:  50%;
+	left: 0;
+	margin: -5em 0 0 3em;
+}
+
+#gutter{
+	position: fixed;
+	top:    0;
+	left:   0;
+	bottom: 0;
+	width:  10em;
+	background-color: #333;
+}
+</style>
+</head>
+
+
+<body>
+	
+	<div id="gutter"></div>
+	<div id="trigger"></div>
+	
+	
+	<script type="module">
+		import Gesture from "../lib/es6/gesture.mjs";
+		
+		const gutter  = document.getElementById("gutter");
+		const trigger = document.getElementById("trigger");
+		
+		new Gesture(trigger, {
+			onStart(point){
+				const x = point[0];
+				
+				// Bail if the touch didn't happen over the gutter/grey strip
+				const box = gutter.getBoundingClientRect();
+				if(x > box.right - box.left)
+					return false;
+			},
+		});
+	</script>
+</body>
+</html>

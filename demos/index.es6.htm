@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="initial-scale=1, minimum-scale=1" />
-<title>Getting in touch</title>
+<title>ES6: Getting in touch</title>
 
 <link rel="stylesheet" type="text/css" href="assets/css/carousel.css" />
 <link rel="stylesheet" type="text/css" href="assets/css/demo.css" />
@@ -22,18 +22,16 @@
 		</ul>
 	</div>
 
-	<script src="../lib/gestures.js"></script>
-	<script src="../lib/swipeable.js"></script>
-	<script>
-		"use strict";
+	<script type="module">
+		import Gesture from "../lib/es6/gesture.mjs";
+		import Swipeable from "../lib/es6/swipeable.mjs";
 		
-		var container = document.getElementById("container");
-		var carousel  = new Swipeable(container.firstElementChild, {
-			
+		const container = document.getElementById("container");
+		const carousel  = new Swipeable(container.firstElementChild, {
 			clearBefore: true,
-			onChange: function(index){
-				carousel.el.classList.toggle("before-first", index < 0);
-			}
+			onChange(index){
+				return this.el.classList.toggle("before-first", index < 0);
+			},
 		});
 	</script>
 	

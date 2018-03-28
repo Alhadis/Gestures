@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="initial-scale=1, minimum-scale=1" />
-<title>Scroll Cancelling</title>
+<title>ES5: Scroll Cancelling</title>
 
 <link rel="stylesheet" type="text/css" href="assets/css/carousel.css" />
 <link rel="stylesheet" type="text/css" href="assets/css/demo.css" />
@@ -44,10 +44,9 @@ html, body{
 		
 		var container = document.getElementById("container");
 		var carousel  = new Swipeable(container.firstElementChild, {
-			
 			clearBefore: true,
 			onChange: function(index){
-				carousel.el.classList.toggle("before-first", index < 0);
+				this.el.classList.toggle("before-first", index < 0);
 			}
 		});
 	</script>
