@@ -45,35 +45,38 @@ canvas{
 		import Gesture from "../lib/gesture.mjs";
 		
 		class Fingerpainter{
-			
-			constructor(canvas, options = {}){
+			constructor(canvas){
 				this.canvas  = canvas;
 				this.context = canvas.getContext("2d");
 				
 				let gesture = new Gesture(canvas, {
 					onStart: (coords, event) => {
-						this.paint(...coords);
+						this.paint(coords);
 					},
 					onMove: coords => {
-						this.paint(...coords);
+						this.paint(coords);
 					},
 					onEnd: (coords, event) => {
-						this.paint(...coords);
+						this.paint(coords);
 						gesture.tracking = false;
 					},
 				});
 			}
 			
-			paint(x, y){
+			paint(point){
+				const x = point.x      * res;
+				const y = point.y      * res;
+				const w = point.width  * res;
+				const h = point.height * res;
+				const r = point.twist  * Math.PI/180;
 				this.context.fillStyle = "#888800";
 				this.context.moveTo(x, y);
-				this.context.fillRect(x, y, 10, 10);
+				this.context.ellipse(x, y, w, h, r, 0, 2 * Math.PI);
+				this.context.fill();
 			}
 		}
 		
-		let fp = new Fingerpainter(pad, {
-			
-		});
+		new Fingerpainter(pad);
 	</script>
 
 </body>
