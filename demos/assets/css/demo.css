@@ -7,9 +7,15 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
 	box-sizing:         border-box;
 }
 
+a:link,
+a:visited{
+	color: inherit;
+	text-decoration: none;
+}
 
 html{
 	background: #000;
+	color: #fff;
 	width: 100%;
 	-webkit-font-smoothing: antialiased;
 	background: url("../img/bg.jpg") no-repeat 50% 50% #000;

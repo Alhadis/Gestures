@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<!--[if lte IE 9]><script src="assets/js/ie.lteIE9.js"></script><![endif]-->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="initial-scale=1, minimum-scale=1" />
+<title>Sidebar Demo</title>
+
+<link rel="stylesheet" type="text/css" href="assets/css/sidebar.css" />
+<link rel="stylesheet" type="text/css" href="assets/css/demo.css" />
+</head>
+
+
+<body>
+	<div class="sidebar">
+		<ul>
+			<li><a href="#">Lorem ipsum</a></li>
+			<li><a href="#">Sed porttitor</a></li>
+			<li><a href="#">Aliquet fermentum</a></li>
+			<li><a href="#">Orci varius</a></li>
+			<li><a href="#">Penatibus et magnis</a></li>
+		</ul>
+	</div>
+	
+	
+	<script type="module">
+		import Drawer from "../lib/drawer.mjs";
+		
+		const sidebar = document.querySelector(".sidebar");
+		const drawer = new Drawer(sidebar);
+		
+		// Expose to dev-console
+		window.drawer = drawer;
+	</script>
+</body>
+</html>
